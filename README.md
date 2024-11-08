@@ -15,13 +15,23 @@ Cleaning Actions:
 replaced null values with 0 whenever necessary,
 cast data type into desired datatype
 Adjusted negative quantity values to 0 to ensure data accuracy.
+step:3  Answering Questions
+Provided Question Example: Found the highest-city country generating revenue ?
+
+Step 4: Creating Self-Formulated Questions
+Analyzed  total monthly sales for the year 
+step 5:Finally, I performed a QA step to validate the integrity of the data, ensuring accuracy and consistency throughout the analysis.
 
 
 ## Results
-(fill in what you discovered this data could tell you and how you used the data to answer those questions)
+analyzed transaction revenues to identify the cities and countries generating the highest income, explored popular products and product categories by region, and found patterns in top-selling items across different locations, with notable revenue contributions from the United States.
+
+
 
 ## Challenges 
 Data Quality: Encountered missing and negative values that required cleaning.
+no unique identifier
+data redundency
 
 ## Future Goals
  Implement strategies to populate NULL values and missing data by calculating averages or using data from related tables to fill gaps. 
