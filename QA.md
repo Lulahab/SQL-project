@@ -23,7 +23,9 @@ select
 	 coalesce(productrefundamount,0) as productrefundamount
 from all_sessions
 
-2.--standardize data;find issues in the data and fix it:inconsistent data formats,capitalization,
+2.
+
+--standardize data;find issues in the data and fix it:inconsistent data formats,capitalization,
 
 --query for handling captialztion
 
@@ -47,6 +49,24 @@ SELECT to_date(date ::text,'yyyymmdd') AS date_new FROM all_sessions
 
 UPDATE all_sessions SET date = to_date(date::text, 'YYYYMMDD');
 
+3.
 
+identifying and removing duplicates
+
+SELECT DISTINCT* --1739308 FROM analytics
+
+SELECT* -- 4301122 FROM analytics
+
+the unique row number is < the orginal rows this means--- we have duplicates
+
+--handling duplicates by creating a veiw table and assigning rows and then delete the rows>1
+
+CREATE VIEW analytics_unique AS WITH DuplicateCheck AS ( SELECT *, ROW_NUMBER() OVER (PARTITION BY visitNumber, visitId, visitStartTime, date, fullvisitorId, userid, channelGrouping, socialEngagementType, units_sold,pageviews, timeonsite, bounces, revenue, unit_price ORDER BY fullvisitorId
+
+) AS row_num
+FROM analytics
+) SELECT * FROM DuplicateCheck WHERE row_num =1;
+
+-------After the CTE computes the row numbers, the main query selects only the rows where row_num = 1, effectively keeping the first occurrence of each unique combination of values in the columns specified in the PARTITION BY clause.
 
 Describe your QA process and include the SQL queries used to execute it.
