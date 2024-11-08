@@ -1,4 +1,10 @@
 What are your risk areas? Identify and describe them.
+--duplicate
+-- null values
+--incorrect data eg negative
+--inconsistent spelling
+--data formats,
+--capitalization,
 
 
 
