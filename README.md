@@ -9,16 +9,16 @@ Data Source: CSV files
 Method: Used the COPY command in PostgreSQL to load the data into the database.
 
 
-### step 2:Step 2: Data Cleaning
+### step 2: Data Cleaning
 Initial Checks: Identified missing and inconsistent data using basic SQL queries,checked for duplicates,null
 Cleaning Actions:
 replaced null values with 0 whenever necessary,
 cast data type into desired datatype
 Adjusted negative quantity values to 0 to ensure data accuracy.
-step:3  Answering Questions
+###step:3  Answering Questions
 Provided Question Example: Found the highest-city country generating revenue ?
 
-Step 4: Creating Self-Formulated Questions
+###Step 4: Creating Self-Formulated Questions
 Analyzed  total monthly sales for the year 
 step 5:Finally, I performed a QA step to validate the integrity of the data, ensuring accuracy and consistency throughout the analysis.
 
