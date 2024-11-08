@@ -26,7 +26,8 @@ SQL Queries:
 
 
 
-Answer:
+Answer:   country	     city	          total_revenue
+         United States     Sunnyvale  	          200000000
 
 
 
@@ -39,7 +40,7 @@ SQL QUERIES:
 SELECT 
     country,
     city,
-    AVG(total_products_per_visitor) AS avg_products_per_visitor  --Calculate the average of total products ordered per visitor
+   round( AVG(total_products_per_visitor),2) AS avg_products_per_visitor  --Calculate the average of total products ordered per visitor
 --    -- Step 2: Calculate the total products ordered per visitor for each city and country  
 FROM (
 
