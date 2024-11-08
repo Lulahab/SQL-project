@@ -21,11 +21,11 @@ where transactions is null --15053
 
 select
   
-             coalesce(totaltransactionrevenue,0) as totaltransactionrevenue,
-	      coalesce(transactions,0) as transactions,
-		coalesce(pageviews,0) as pageviews,
-		coalesce(sessionqualitydim,0) as sessionqualitydim ,
-		 coalesce(productrefundamount,0) as productrefundamount
+        coalesce(totaltransactionrevenue,0) as totaltransactionrevenue,
+	coalesce(transactions,0) as transactions,
+	coalesce(pageviews,0) as pageviews,
+	coalesce(sessionqualitydim,0) as sessionqualitydim ,
+	 coalesce(productrefundamount,0) as productrefundamount
 from all_sessions
 
 2.--standardize data;find issues in the data and fix it:inconsistent data formats,capitalization,
@@ -36,12 +36,12 @@ from all_sessions
 
 select 
  
-	  lower(country) as country, 
-	   lower(city) as city, trim(both from  (productsku)) as productsku,
-		 trim(both from INITCAP (v2productname)) as productname,
-		 trim(both from INITCAP (v2productcategory)) as v2productcategory,
-		 trim(both from (productvariant)) as productvariant,
-		 UPPER(currencycode) as currencycode
+	lower(country) as country, 
+	lower(city) as city, trim(both from  (productsku)) as productsku,
+	trim(both from INITCAP (v2productname)) as productname,
+	trim(both from INITCAP (v2productcategory)) as v2productcategory,
+	trim(both from (productvariant)) as productvariant,
+	UPPER(currencycode) as currencycode
 from all_sessions 
 
 
@@ -75,17 +75,30 @@ the unique row number is < the orginal rows  this means--- we have duplicates
 CREATE VIEW analytics_unique AS
    WITH DuplicateCheck AS (
         SELECT *,
-           ROW_NUMBER() OVER (PARTITION BY visitNumber,
-		                             visitId,visitStartTime, date,fullvisitorId,
-		   userid,channelGrouping,	socialEngagementType,units_sold,pageviews,timeonsite,bounces,
-		   revenue,unit_price ORDER BY fullvisitorId
+                 ROW_NUMBER() OVER (PARTITION BY visitNumber,
+		                                 visitId,
+				                 visitStartTime,
+		                                 date,
+				                 fullvisitorId,
+		                                 userid,
+				                 channelGrouping,	
+		                                 socialEngagementType,
+				                 units_sold,pageviews,
+		                                 timeonsite,
+				                 bounces,
+		                                 revenue,
+				                 unit_price 
+		     ORDER BY fullvisitorId
 		
 	) AS row_num
     FROM analytics
 )
 SELECT *
 FROM DuplicateCheck
-WHERE row_num =1;  -------After the CTE computes the row numbers, the main query selects only the rows where row_num = 1, effectively keeping the first occurrence of each unique combination of values in the columns specified in the PARTITION BY clause.
+WHERE row_num =1;  
+
+-------After the CTE computes the row numbers, the main query selects only the rows where row_num = 1, effectively keeping the first occurrence of each 
+                         unique combination of values in the columns specified in the PARTITION BY clause.
 
 4.--check for incorrect data	  
 
