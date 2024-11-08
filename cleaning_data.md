@@ -2,11 +2,11 @@ What issues will you address by cleaning the data?
 
 -remove duplicates
 --standardize data;find issues in the data and fix it:inconsistent data formats,capitalization,
---null or blank value,try to populate or remove if no u
+--null or blank value,try to populate or remove if no use
 
 cleaning process:
 -- Select distinct rows based on the `fullvisitorid` and other columns for a comprehensive view of each visitor's session
-
+```sql
 create view as
 select distinct fullvisitorid , ---- Unique identifier for each visitor
        trim(both from INITCAP (channelgrouping)) AS channelgrouping, -- -- Format the `channelgrouping` column by trimming ----whitespace and capitalizing the first letter of each word
@@ -42,7 +42,7 @@ select distinct fullvisitorid , ---- Unique identifier for each visitor
 		 ecommerceaction_option
 from all_sessions
 
-
+```
 
 
 Explanation:
@@ -52,6 +52,44 @@ Explanation:
 --(time * interval '1 second')::time: Converts the time field (assumed to be in seconds) to a time format.
 --TO_DATE: Converts a date stored as a string in the 'yyyymmdd' format to a proper DATE type.
 This query provides a comprehensive view of all_session data with clean and consistent formatting.
+
+
+
+
+```sql
+select*from analytics
+
+create view as cleaned_analytics
+select distinct
+     visitnumber,
+     visitid, 
+     ((interval'1 second') * visitstarttime::integer)::time  as visitstarttime,---- Converts visitstarttime (in seconds) to a TIME data type
+     to_date(date::text, 'yyyymmdd')::date as date,
+     fullvisitorid,
+     trim(both from INITCAP (channelgrouping)) AS channelgrouping,
+     socialengagementtype,
+     coalesce(units_sold,0) as units_sold,
+     coalesce(pageviews::integer,0) as pageviews,
+     '00:00:00'::time  as timeonsite,
+     coalesce(bounces, 0) as bounces,
+     coalesce(revenue, 0) as revenue,
+     (unit_price/1000000) as unit_price
+from analytics
+     ```
+
+1. Cleaning and Formatting Data: It creates a new view (cleaned_analytics) from the analytics table, transforming certain fields for clarity and consistency. It formats the visitstarttime field to a TIME type and converts the date field into a standard DATE format.
+
+2.Trimming and Normalizing Values: The channelgrouping is trimmed of extra spaces and capitalized using INITCAP to ensure uniform formatting.
+
+3.Handling Null Values: The query uses COALESCE to replace NULL values in several columns (units_sold, pageviews, bounces, revenue) with zero, ensuring no missing data.
+
+4.Calculating Unit Price: The unit_price is divided by 1,000,000 for scaling, adjusting the values to the intended range for analysis.
+
+This cleaned and transformed dataset is ready for further analysis or visualization.
+
+
+
+
 
 
 
