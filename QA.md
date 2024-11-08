@@ -69,4 +69,8 @@ FROM analytics
 
 -------After the CTE computes the row numbers, the main query selects only the rows where row_num = 1, effectively keeping the first occurrence of each unique combination of values in the columns specified in the PARTITION BY clause.
 
+
+4.--check for incorrect data
+
+select * from analytics where units_sold < 0--- 1 row units_sold = -89 --we can remove it permanently update analytics drop units_sold where units_sold is < 0
 Describe your QA process and include the SQL queries used to execute it.
