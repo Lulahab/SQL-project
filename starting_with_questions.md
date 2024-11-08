@@ -3,6 +3,7 @@ Answer the following questions and provide the SQL queries used to find the answ
     
 **Question 1: Which cities and countries have the highest level of transaction revenues on the site?**
 -- Step 1: Select the top 10 cities and countries with the highest transaction revenue
+```sql
 SELECT
      country,
      city,
@@ -21,7 +22,7 @@ GROUP BY
 ORDER BY 
     total_revenue DESC
 	limit 10
-
+```
 SQL Queries:
 
 
