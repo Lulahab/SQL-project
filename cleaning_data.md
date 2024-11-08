@@ -4,7 +4,7 @@ What issues will you address by cleaning the data?
 --standardize data;find issues in the data and fix it:inconsistent data formats,capitalization,
 --null or blank value,try to populate or remove if no u
 
-QA PROCESS:
+cleaning process:
 
 select*from all_sessions
 
