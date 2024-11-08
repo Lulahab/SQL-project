@@ -5,6 +5,7 @@ What are your risk areas? Identify and describe them.
 --inconsistent spelling
 --data formats,
 --capitalization,
+-- data redunduncy
 
 
 
