@@ -27,8 +27,14 @@ SQL Queries:
 
 
 
-Answer:   country	     city	          total_revenue
-         United States     Sunnyvale  	          200000000
+Answer:
+
+| country       | city      | total_revenue |   |   |
+|---------------|-----------|---------------|---|---|
+| united states | sunnyvale | 200000000     |   |   |
+|               |           |               |   |   |
+|               |           |               |   |   |
+
 
 
 
@@ -38,6 +44,9 @@ Answer:   country	     city	          total_revenue
 
 SQL QUERIES:
 -- Step 1: Calculate the average number of products ordered per visitor for each city and country
+
+```sql
+
 SELECT 
     country,
     city,
@@ -70,6 +79,7 @@ GROUP BY
     city
 ORDER BY 
     avg_products_per_visitor DESC;
+```
 	
 
 Answer:
@@ -83,7 +93,12 @@ Answer:
 
 SQL Queries:
 -- Step 1: Calculate the number of product categories per city and country
+Objective: To determine which product category is the most popular in each city and country.
 
+Method: Use a query that identifies the product category with the highest number of orders in each location.
+Expected Insight: If the same product category appears as the top item in multiple places, it shows a broader trend . If different product categories top the list in various places, this indicates more localized preferences.
+
+```sql
 SELECT 
     country,
 	city ,
@@ -98,13 +113,10 @@ WHERE
 group by country,
         city
 order by number_products desc
-
-
-
+```
 
 
 Answer:This query will return the number of products available in each product category for each city and country, sorted by the number of products in descending order.
-
 
 
 
@@ -113,6 +125,8 @@ Answer:This query will return the number of products available in each product c
 
 
 SQL Queries:
+
+```sql
 
 with product_sales as(SELECT 
       v2productname,city,country,
@@ -138,7 +152,7 @@ FROM product_sales
 ) as subq
 
 where rank_sales<=1
-
+```
 
 
 Answer:
@@ -152,6 +166,9 @@ Answer:
 SQL Queries:
 
 Step 1: Calculate total revenue per city and countr
+
+```sql
+
 with revenue_of_city_country as(
         SELECT city, country,
         SUM(units_sold * a.unit_price/1000000) as total_revenue -- Sum of units sold multiplied by unit price, divided by 1,000,000 for scaling
@@ -177,7 +194,7 @@ ROUND(total_revenue/(SELECT SUM(total_revenue) FROM revenue_of_city_country)*100
 RANK() over(order by total_revenue desc ) as rank_revenue
 FROM revenue_of_city_country --Use the result of the CTE from Step 1
 order by rank_revenue -- Order the final result by the revenue rank (highest revenue first)
-
+```
 
 
 Answer:
