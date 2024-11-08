@@ -10,16 +10,19 @@ What issues will you address by cleaning the data?
 
 Queries:
 1. identifying null values and handling it
-  select * 
+
+select * 
 from all_sessions
 where transactions is null --15053
 -- there are 15053 raws with nulls 
 -- we can check every column using that method
 
 --Query for handling nulls
+
 select
-   coalesce(totaltransactionrevenue,0) as totaltransactionrevenue,
-	    coalesce(transactions,0) as transactions,
+  
+             coalesce(totaltransactionrevenue,0) as totaltransactionrevenue,
+	      coalesce(transactions,0) as transactions,
 		coalesce(pageviews,0) as pageviews,
 		coalesce(sessionqualitydim,0) as sessionqualitydim ,
 		 coalesce(productrefundamount,0) as productrefundamount
@@ -29,6 +32,8 @@ from all_sessions
 
 
 --query for handling captialztion
+
+
 select 
  
 	  lower(country) as country, 
@@ -39,13 +44,17 @@ select
 		 UPPER(currencycode) as currencycode
 from all_sessions 
 
+
 --identifying inconsistent data types and handling them
 
 --cast date from integer to date
+
 query
  
- SELECT to_date(date ::text,'yyyymmdd') AS date_new
- FROM  all_sessions
+ SELECT 
+       to_date(date ::text,'yyyymmdd') AS date_new
+FROM  all_sessions
+
 UPDATE all_sessions
 SET date = to_date(date::text, 'YYYYMMDD');
 
@@ -64,8 +73,8 @@ the unique row number is < the orginal rows  this means--- we have duplicates
 --handling duplicates by creating a veiw table and assigning rows and then delete the rows>1
 
 CREATE VIEW analytics_unique AS
-WITH DuplicateCheck AS (
-    SELECT *,
+   WITH DuplicateCheck AS (
+        SELECT *,
            ROW_NUMBER() OVER (PARTITION BY visitNumber,
 		                             visitId,visitStartTime, date,fullvisitorId,
 		   userid,channelGrouping,	socialEngagementType,units_sold,pageviews,timeonsite,bounces,
@@ -79,6 +88,8 @@ FROM DuplicateCheck
 WHERE row_num =1;  -------After the CTE computes the row numbers, the main query selects only the rows where row_num = 1, effectively keeping the first occurrence of each unique combination of values in the columns specified in the PARTITION BY clause.
 
 4.--check for incorrect data	  
+
+
 select *
 from analytics
 where units_sold < 0--- 1 row units_sold = -89
