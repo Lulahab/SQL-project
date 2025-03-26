@@ -5,14 +5,14 @@ The goal of this project was to load, clean, transform, and analyze data using S
 
 ## Process
 
-### step 1:Data Loading
+step 1:Data Loading
 
 Data Source: CSV files
 
 Method: Used the COPY command in PostgreSQL to load the data into the database.
 
 
-### step 2: Data Cleaning
+step 2: Data Cleaning
 
 Initial Checks: Identified missing and inconsistent data using basic SQL queries,checked for duplicates,null
 
@@ -24,11 +24,11 @@ cast data type into desired datatype
 
 Adjusted negative quantity values to 0 to ensure data accuracy.
 
-###step:3  Answering Questions
+step:3  Answering Questions
 
 Provided Question Example: Found the highest-city country generating revenue ?
 
-###Step 4: Creating Self-Formulated Questions
+Step 4: Creating Self-Formulated Questions
 
 Analyzed  total monthly sales for the year 
 
